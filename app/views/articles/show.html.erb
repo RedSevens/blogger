@@ -1,12 +1,21 @@
 <h1><%= @article.title %></h1>
-<p><%= @article.body %></p><br />
-<h3 style="text-decoration: underline;">Comments (<%= @article.comments.size %>)</h3>
-<%= render partial: 'articles/comment', collection: @article.comments %>
-<%= render partial: 'comments/form' %>
-<p style="text-align: left;">
+<p style="text-align: right; margin-bottom: -60px;">
 	<%= link_to "<< Go Back to Articles List", articles_path %><br />
 	<%= link_to "Edit This Article", edit_article_path(@article) %><br />
 	<%= link_to "Delete This Article", article_path(@article), 
 	:method => :delete,
 	:confirm => "Do you really want to delete this article?" %>
 </p>
+<p>
+  Tags:
+  <% @article.tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag) %>
+  <% end %>
+  <% if @article.image.exists? %>
+		<p><%= image_tag @article.image.url %></p>
+	<% end %>
+</p><br />
+<p><%= @article.body %></p><br />
+<h3 style="text-decoration: underline;">Comments (<%= @article.comments.size %>)</h3>
+<%= render partial: 'articles/comment', collection: @article.comments %>
+<%= render partial: 'comments/form' %>
