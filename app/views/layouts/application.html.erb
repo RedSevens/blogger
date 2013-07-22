@@ -7,9 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<p class="flash"><%= flash.notice %></p>
-<%= yield %>
-
+  <p class="flash">
+    <%= flash.notice %>
+  </p>
+  <div>
+    <div>
+      <%= yield %>
+      <hr>
+      <% if !current_page?(tags_path) %>
+        <%= link_to "Tags Page", tags_path %><br /><br />
+      <% end %>
+      <h6>
+        <% if logged_in? %>
+          <%= "Logged in as #{current_user.username}" %>
+          <%= link_to "(Logout!)", logout_path %>
+          <%= link_to "Edit Profile", author_path(current_user.id) %>
+        <% else %>
+          <%= link_to "(Login!)", login_path %>
+        <% end %><br />
+        <%= link_to "Create a New Account!", new_author_path %>
+      </h6>
+    </div>
+  </div>
+  <% if logged_in? %>
+    <%= link_to "Create a new Article", new_article_path, :class => "new_article" %>
+  <hr>
+  <% end %>
+  <% if !current_page?(root_url) && !current_page?(articles_path) %>
+    <%= link_to "<< Go Back to Articles List", articles_path %><br />
+  <% end %>
 </body>
 </html>

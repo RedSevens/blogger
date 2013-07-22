@@ -1,10 +1,11 @@
 <h1><%= @article.title %></h1>
-<p style="text-align: right; margin-bottom: -60px;">
-	<%= link_to "<< Go Back to Articles List", articles_path %><br />
-	<%= link_to "Edit This Article", edit_article_path(@article) %><br />
-	<%= link_to "Delete This Article", article_path(@article), 
-	:method => :delete,
-	:confirm => "Do you really want to delete this article?" %>
+<p style="text-align: right; margin-bottom: -30px;">
+<% if logged_in? %>
+		<%= link_to "Edit This Article", edit_article_path(@article) %><br />
+		<%= link_to "Delete This Article", article_path(@article), 
+		:method => :delete,
+		:confirm => "Do you really want to delete this article?" %>
+<% end %>
 </p>
 <p>
   Tags:

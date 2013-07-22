@@ -2,8 +2,13 @@
 
 <ul id="tags">
 	<% @tags.each do |tag| %>
-		<li><%= link_to tag.name, tag_path(tag) %></li>
+		<li><%= link_to tag.name, tag_path(tag) %>
+			<% if logged_in? %>
+				------<%= link_to "Delete This Tag", tag_path(tag), 
+				:method => :delete,
+				:confirm => "Do you really want to delete this tag?" %>
+			<% end %>
+		</li>
 	<% end %>
 </ul>
 <br/>
-<%= link_to "<< Go Back to Articles List", articles_path %><br />
